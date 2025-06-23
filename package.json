@@ -1,0 +1,15 @@
+{
+  "name": "tonasa-hut-generator",
+  "version": "1.0.0",
+  "description": "Image generator for ucapan HUT",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "handlebars": "^4.7.8",
+    "node-html-to-image": "^3.2.0"
+  }
+}

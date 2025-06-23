@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      width: 1080px;
+      height: 1920px;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url("/bg-tonasa.png");
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    .container {
+      padding: 200px 100px;
+      text-align: center;
+      color: #000;
+    }
+
+    .title {
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .greeting {
+      color: #e30613;
+      font-size: 48px;
+      margin-top: 20px;
+    }
+
+    .orang {
+      margin-top: 40px;
+      background-color: #e30613;
+      color: white;
+      font-weight: bold;
+      font-size: 26px;
+      padding: 8px 24px;
+      border-radius: 6px;
+    }
+
+    .jabatan {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .tanggal {
+      font-size: 36px;
+      color: #e30613;
+      margin-top: 40px;
+    }
+
+    .footer {
+      margin-top: 60px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">Dewan Komisaris, Direksi & Karyawan<br>PT Semen Tonasa mengucapkan</div>
+    <div class="greeting">SELAMAT ULANG TAHUN </div>
+    <p>Kepada:</p>
+
+    {{#each data}}
+      <div class="orang">{{this.nama}}</div>
+      <div class="jabatan">{{this.jabatan}}</div>
+    {{/each}}
+
+    <div class="tanggal">{{tanggal}}</div>
+    <div class="footer">
+      TTD<br>ASRUDDIN<br>Direktur Utama
+    </div>
+  </div>
+</body>
+</html>
