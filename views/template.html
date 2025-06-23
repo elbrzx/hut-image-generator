@@ -12,6 +12,7 @@
       background-image: url("https://hut-image-generator-production.up.railway.app/bg-tonasa.png");
       background-size: cover;
       background-repeat: no-repeat;
+      position: relative;
     }
 
     .container {
@@ -23,8 +24,6 @@
 
     .orang {
       position: absolute;
-      top: 700px;
-      left: 0;
       width: 100%;
       font-size: 48px;
       font-weight: bold;
@@ -33,8 +32,6 @@
 
     .jabatan {
       position: absolute;
-      top: 770px;
-      left: 0;
       width: 100%;
       font-size: 30px;
       color: #000;
@@ -42,8 +39,7 @@
 
     .tanggal {
       position: absolute;
-      top: 880px;
-      left: 0;
+      top: 900px;
       width: 100%;
       font-size: 32px;
       color: #e30613;
@@ -53,8 +49,8 @@
 <body>
   <div class="container">
     {{#each data}}
-      <div class="orang">{{this.nama}}</div>
-      <div class="jabatan">{{this.jabatan}}</div>
+      <div class="orang" style="top: {{this.topNama}}px">{{this.nama}}</div>
+      <div class="jabatan" style="top: {{this.topJabatan}}px">{{this.jabatan}}</div>
     {{/each}}
 
     <div class="tanggal">{{tanggal}}</div>
