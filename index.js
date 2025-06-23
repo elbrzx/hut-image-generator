@@ -6,17 +6,19 @@ const path = require('path');
 
 const app = express();
 app.use(bodyParser.json());
-app.use(express.static('public'));
+app.use(express.static('public')); // serve bg image
 
 app.post('/generate', async (req, res) => {
   const { data, tanggal } = req.body;
   const htmlTemplate = fs.readFileSync(path.join(__dirname, 'views', 'template.html'), 'utf8');
 
-  // Hitung posisi dinamis
+  // Buat posisi dinamis
+  const baseTop = 800;
+  const space = 100 / Math.max(data.length, 1); // jarak antar orang
   const dataWithPosition = data.map((item, i) => ({
     ...item,
-    topNama: 700 + i * 200,
-    topJabatan: 760 + i * 200
+    topNama: baseTop + i * space * 2,
+    topJabatan: baseTop + i * space * 2 + 40
   }));
 
   try {
@@ -39,22 +41,5 @@ app.get('/', (req, res) => {
   res.send('🎉 Ucapan HUT Image Generator Aktif!');
 });
 
-app.get('/test', async (req, res) => {
-  const html = fs.readFileSync(path.join(__dirname, 'views', 'template.html'), 'utf8');
-
-  const dummy = [
-    { nama: "AZIS HM.", jabatan: "Partnership Program Jr Officer" },
-    { nama: "WAHYUDIN, ST.", jabatan: "Spv of PdM Elins Workshop" }
-  ];
-  const tanggal = "23 Juni 2025";
-  const dataWithPosition = dummy.map((item, i) => ({
-    ...item,
-    topNama: 700 + i * 200,
-    topJabatan: 760 + i * 200
-  }));
-
-  try {
-    const imageBuffer = await nodeHtmlToImage({
-      html,
-      content: { data: dataWithPosition, tanggal },
-      puppeteerArgs: { args: ['--no-sandbox']()
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`🚀 Server jalan di http://localhost:${port}`));
