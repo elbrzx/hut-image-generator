@@ -12,50 +12,59 @@
       background-size: cover;
       background-position: center;
       font-family: 'Arial', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      position: relative;
     }
 
-    .content {
+    .container {
+      position: absolute;
+      top: 700px; /* posisi awal untuk daftar nama */
       width: 100%;
       text-align: center;
-      padding: 100px 60px 80px;
+      padding: 0 60px;
       box-sizing: border-box;
     }
 
     .person {
-      margin-bottom: 30px;
+      margin-bottom: 40px;
     }
 
     .nama {
-      font-size: 36px;
+      display: inline-block;
+      background-color: #d0021b;
+      color: white;
+      font-size: 34px;
       font-weight: bold;
-      color: red;
+      padding: 10px 20px;
+      border-radius: 4px;
+      max-width: 90%;
     }
 
     .jabatan {
-      font-size: 24px;
-      color: black;
+      font-size: 22px;
+      margin-top: 6px;
+      color: #000;
     }
 
     .tanggal {
-      margin-top: 40px;
-      font-size: 42px;
+      position: absolute;
+      bottom: 370px;
+      width: 100%;
+      text-align: center;
+      font-size: 38px;
       font-weight: bold;
-      color: red;
+      color: #d0021b;
     }
   </style>
 </head>
 <body>
-  <div class="content">
+  <div class="container">
     {{#each data}}
       <div class="person">
         <div class="nama">{{this.nama}}</div>
         <div class="jabatan">{{this.jabatan}}</div>
       </div>
     {{/each}}
-    <div class="tanggal">{{tanggal}}</div>
   </div>
+  <div class="tanggal">{{tanggal}}</div>
 </body>
 </html>
