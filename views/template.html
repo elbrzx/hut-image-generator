@@ -1,58 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <style>
     body {
       width: 1080px;
-      height: 1920px;
+      height: 1350px;
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
       background-image: url("https://hut-image-generator-production.up.railway.app/bg-tonasa.png");
       background-size: cover;
-      background-repeat: no-repeat;
+      background-position: center;
+      font-family: 'Arial', sans-serif;
       position: relative;
     }
 
-    .container {
+    .content {
+      position: absolute;
+      top: 540px; /* posisi awal tengah */
       width: 100%;
-      height: 100%;
-      position: relative;
       text-align: center;
     }
 
-    .orang {
-      position: absolute;
-      width: 100%;
-      font-size: 48px;
+    .person {
+      margin-bottom: 40px; /* jarak antar orang */
+    }
+
+    .nama {
+      font-size: 36px;
       font-weight: bold;
-      color: #e30613;
+      color: red;
     }
 
     .jabatan {
-      position: absolute;
-      width: 100%;
-      font-size: 30px;
-      color: #000;
+      font-size: 24px;
+      color: black;
     }
 
     .tanggal {
-      position: absolute;
-      top: 900px;
-      width: 100%;
-      font-size: 32px;
-      color: #e30613;
+      margin-top: 20px;
+      font-size: 38px;
+      font-weight: bold;
+      color: red;
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="content">
     {{#each data}}
-      <div class="orang" style="top: {{this.topNama}}px">{{this.nama}}</div>
-      <div class="jabatan" style="top: {{this.topJabatan}}px">{{this.jabatan}}</div>
+      <div class="person">
+        <div class="nama">{{this.nama}}</div>
+        <div class="jabatan">{{this.jabatan}}</div>
+      </div>
     {{/each}}
-
     <div class="tanggal">{{tanggal}}</div>
   </div>
 </body>
