@@ -4,19 +4,17 @@
   <meta charset="utf-8">
   <style>
     @font-face {
-      font-family: 'SIG-Headline';
-      src: url("https://hut-image-generator-production.up.railway.app/fonts/SIGHeadline-Bold.otf") format('opentype');
-    }
-
-    @font-face {
-      font-family: 'SIG-Text-Bold';
-      src: url("https://hut-image-generator-production.up.railway.app/fonts/SIGText-Bold.otf") format('opentype');
-    }
-
-    @font-face {
-      font-family: 'SIG-Text-Regular';
-      src: url("https://hut-image-generator-production.up.railway.app/fonts/SIGText-Regular.otf") format('opentype');
-    }
+    font-family: 'SIG-Headline';
+    src: url('data:font/opentype;base64,{{fontHeadline}}') format('opentype');
+  }
+  @font-face {
+    font-family: 'SIG-Text-Bold';
+    src: url('data:font/opentype;base64,{{fontTextBold}}') format('opentype');
+  }
+  @font-face {
+    font-family: 'SIG-Text-Regular';
+    src: url('data:font/opentype;base64,{{fontTextRegular}}') format('opentype');
+  }
 
     body {
       width: 1080px;
