@@ -1,16 +1,16 @@
 @font-face {
   font-family: 'SIG-Headline';
-  src: url('../fonts/SIGHeadline-Bold.otf') format('opentype');
+  src: url('/fonts/SIGHeadline-Bold.otf') format('opentype');
 }
 
 @font-face {
   font-family: 'SIG-Text-Bold';
-  src: url('../fonts/SIGText-Bold.otf') format('opentype');
+  src: url('/fonts/SIGText-Bold.otf') format('opentype');
 }
 
 @font-face {
   font-family: 'SIG-Text-Regular';
-  src: url('../fonts/SIGText-Regular.otf') format('opentype');
+  src: url('/fonts/SIGText-Regular.otf') format('opentype');
 }
 
 body {
@@ -18,10 +18,12 @@ body {
   height: 1920px;
   margin: 0;
   padding: 0;
-  background-image: url("https://hut-image-generator-production.up.railway.app/bg-tonasa.png");
+  background-image: url('/public/bg-tonasa.png');
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   position: relative;
+  font-family: 'SIG-Text-Regular', sans-serif;
 }
 
 .container {
@@ -37,11 +39,12 @@ body {
   gap: 40px;
 }
 
-/* Dynamic scaling text size */
+/* Untuk tiap orang */
 .person {
   width: 100%;
 }
 
+/* Ukuran nama dinamis tergantung jumlah orang, akan diganti saat render server */
 .nama {
   display: inline-block;
   background-color: #d0021b;
@@ -49,18 +52,20 @@ body {
   padding: 10px 20px;
   border-radius: 4px;
   font-family: 'SIG-Text-Bold';
-  font-size: calc(36px - ({{data.length}} - 1) * 4px);
+  font-size: 36px;
   max-width: 90%;
   line-height: 1.2;
 }
 
+/* Jabatan di bawah nama */
 .jabatan {
   font-family: 'SIG-Text-Regular';
-  font-size: calc(24px - ({{data.length}} - 1) * 2px);
+  font-size: 24px;
   margin-top: 6px;
   color: #000;
 }
 
+/* Tanggal di bawah */
 .tanggal {
   position: absolute;
   bottom: 430px;
