@@ -5,16 +5,20 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
+
+// Serve folder public (bg-tonasa.png & fonts)
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
-app.use(express.static('public')); // serve bg image
 
 app.post('/generate', async (req, res) => {
   const { data, tanggal } = req.body;
+
+  // Ambil HTML template
   const htmlTemplate = fs.readFileSync(path.join(__dirname, 'views', 'template.html'), 'utf8');
 
-  // Buat posisi dinamis
+  // Kamu bisa sesuaikan top kalau mau pakai positioning manual
   const baseTop = 800;
-  const space = 100 / Math.max(data.length, 1); // jarak antar orang
+  const space = 100 / Math.max(data.length, 1);
   const dataWithPosition = data.map((item, i) => ({
     ...item,
     topNama: baseTop + i * space * 2,
@@ -24,22 +28,31 @@ app.post('/generate', async (req, res) => {
   try {
     const imageBuffer = await nodeHtmlToImage({
       html: htmlTemplate,
-      content: { data: dataWithPosition, tanggal },
+      content: {
+        data: dataWithPosition,
+        tanggal
+      },
       puppeteerArgs: { args: ['--no-sandbox'] },
-      encoding: 'buffer'
+      encoding: 'buffer',
+      type: 'png',
+      quality: 100
     });
 
     res.setHeader('Content-Type', 'image/png');
     res.send(imageBuffer);
   } catch (e) {
-    console.error('Error:', e);
+    console.error('❌ Error saat generate gambar:', e);
     res.status(500).send('Gagal generate gambar');
   }
 });
 
+// Tes server aktif
 app.get('/', (req, res) => {
   res.send('🎉 Ucapan HUT Image Generator Aktif!');
 });
 
+// Jalankan server
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`🚀 Server jalan di http://localhost:${port}`));
+app.listen(port, () => {
+  console.log(`🚀 Server jalan di http://localhost:${port}`);
+});
