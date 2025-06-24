@@ -15,6 +15,9 @@ app.post('/generate', async (req, res) => {
 
   // Ambil HTML template
   const htmlTemplate = fs.readFileSync(path.join(__dirname, 'views', 'template.html'), 'utf8');
+  const cssContent = fs.readFileSync(path.join(__dirname, 'views', 'template.css'), 'utf8');
+  const finalHtml = htmlTemplate.replace('<!-- {{style}} -->', `<style>${cssContent}</style>`);
+
 
   // Kamu bisa sesuaikan top kalau mau pakai positioning manual
   const baseTop = 800;
@@ -27,11 +30,8 @@ app.post('/generate', async (req, res) => {
 
   try {
     const imageBuffer = await nodeHtmlToImage({
-      html: htmlTemplate,
-      content: {
-        data: dataWithPosition,
-        tanggal
-      },
+      html: finalHtml,
+      content: { data: dataWithPosition, tanggal },
       puppeteerArgs: { args: ['--no-sandbox'] },
       encoding: 'buffer',
       type: 'png',
