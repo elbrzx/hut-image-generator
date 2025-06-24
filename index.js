@@ -36,18 +36,12 @@ app.post('/generate', async (req, res) => {
     .replace('{{SIGTextBold}}', SIGTextBold)
     .replace('{{SIGTextRegular}}', SIGTextRegular);
 
-  try {
-    const imageBuffer = await nodeHtmlToImage({
-      html: htmlTemplate,
-      content: {
-        data,
-        tanggal,
-        namaUkuran,
-        jabatanUkuran
-      },
-      puppeteerArgs: { args: ['--no-sandbox'] },
-      encoding: 'buffer'
-    });
+  const imageBuffer = await nodeHtmlToImage({
+  html: finalHtml,
+  content: { data, tanggal, namaUkuran, jabatanUkuran },
+  puppeteerArgs: { args: ['--no-sandbox'] },
+  encoding: 'buffer'
+});
 
     res.setHeader('Content-Type', 'image/png');
     res.send(imageBuffer);
