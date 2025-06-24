@@ -22,26 +22,27 @@ app.post('/generate', async (req, res) => {
     jumlahOrang <= 3 ? '24px' :
     jumlahOrang <= 5 ? '20px' : '18px';
 
-  // Load base64 fonts
-  const SIGHeadlineBold = fs.readFileSync(path.join(__dirname, 'public/fonts/SIGHeadline-Bold.otf')).toString('base64');
-  const SIGTextBold = fs.readFileSync(path.join(__dirname, 'public/fonts/SIGText-Bold.otf')).toString('base64');
-  const SIGTextRegular = fs.readFileSync(path.join(__dirname, 'public/fonts/SIGText-Regular.otf')).toString('base64');
+  try {
+    // Load base64 fonts
+    const SIGHeadlineBold = fs.readFileSync(path.join(__dirname, 'public/fonts/SIGHeadline-Bold.otf')).toString('base64');
+    const SIGTextBold = fs.readFileSync(path.join(__dirname, 'public/fonts/SIGText-Bold.otf')).toString('base64');
+    const SIGTextRegular = fs.readFileSync(path.join(__dirname, 'public/fonts/SIGText-Regular.otf')).toString('base64');
 
-  // Load HTML template
-  let htmlTemplate = fs.readFileSync(path.join(__dirname, 'views/template.html'), 'utf8');
+    // Load HTML template
+    let htmlTemplate = fs.readFileSync(path.join(__dirname, 'views/template.html'), 'utf8');
 
-  // Inject base64 font ke HTML
-  htmlTemplate = htmlTemplate
-    .replace('{{SIGHeadlineBold}}', SIGHeadlineBold)
-    .replace('{{SIGTextBold}}', SIGTextBold)
-    .replace('{{SIGTextRegular}}', SIGTextRegular);
+    // Inject base64 font ke HTML
+    htmlTemplate = htmlTemplate
+      .replace('{{SIGHeadlineBold}}', SIGHeadlineBold)
+      .replace('{{SIGTextBold}}', SIGTextBold)
+      .replace('{{SIGTextRegular}}', SIGTextRegular);
 
-  const imageBuffer = await nodeHtmlToImage({
-  html: finalHtml,
-  content: { data, tanggal, namaUkuran, jabatanUkuran },
-  puppeteerArgs: { args: ['--no-sandbox'] },
-  encoding: 'buffer'
-});
+    const imageBuffer = await nodeHtmlToImage({
+      html: htmlTemplate,
+      content: { data, tanggal, namaUkuran, jabatanUkuran },
+      puppeteerArgs: { args: ['--no-sandbox'] },
+      encoding: 'buffer'
+    });
 
     res.setHeader('Content-Type', 'image/png');
     res.send(imageBuffer);
