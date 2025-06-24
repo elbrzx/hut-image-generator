@@ -6,21 +6,45 @@ const path = require('path');
 
 const app = express();
 app.use(bodyParser.json());
-app.use(express.static('public')); // untuk serve gambar & font
+app.use(express.static('public')); // untuk serve background
 
 app.post('/generate', async (req, res) => {
   const { data, tanggal } = req.body;
 
+  // Hitung ukuran font responsif
   const jumlahOrang = data.length || 1;
-  const namaUkuran = jumlahOrang <= 1 ? '48px' : jumlahOrang <= 3 ? '42px' : jumlahOrang <= 5 ? '36px' : '28px';
-  const jabatanUkuran = jumlahOrang <= 1 ? '28px' : jumlahOrang <= 3 ? '24px' : jumlahOrang <= 5 ? '20px' : '18px';
+  const namaUkuran =
+    jumlahOrang <= 1 ? '48px' :
+    jumlahOrang <= 3 ? '42px' :
+    jumlahOrang <= 5 ? '36px' : '28px';
+  const jabatanUkuran =
+    jumlahOrang <= 1 ? '28px' :
+    jumlahOrang <= 3 ? '24px' :
+    jumlahOrang <= 5 ? '20px' : '18px';
 
-  const htmlTemplate = fs.readFileSync(path.join(__dirname, 'views', 'template.html'), 'utf8');
+  // Load base64 fonts
+  const SIGHeadlineBold = fs.readFileSync(path.join(__dirname, 'public/fonts/SIGHeadline-Bold.otf')).toString('base64');
+  const SIGTextBold = fs.readFileSync(path.join(__dirname, 'public/fonts/SIGText-Bold.otf')).toString('base64');
+  const SIGTextRegular = fs.readFileSync(path.join(__dirname, 'public/fonts/SIGText-Regular.otf')).toString('base64');
+
+  // Load HTML template
+  let htmlTemplate = fs.readFileSync(path.join(__dirname, 'views/template.html'), 'utf8');
+
+  // Inject base64 font ke HTML
+  htmlTemplate = htmlTemplate
+    .replace('{{SIGHeadlineBold}}', SIGHeadlineBold)
+    .replace('{{SIGTextBold}}', SIGTextBold)
+    .replace('{{SIGTextRegular}}', SIGTextRegular);
 
   try {
     const imageBuffer = await nodeHtmlToImage({
       html: htmlTemplate,
-      content: { data, tanggal, namaUkuran, jabatanUkuran },
+      content: {
+        data,
+        tanggal,
+        namaUkuran,
+        jabatanUkuran
+      },
       puppeteerArgs: { args: ['--no-sandbox'] },
       encoding: 'buffer'
     });
