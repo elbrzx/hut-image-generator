@@ -18,7 +18,7 @@ body {
   height: 1920px;
   margin: 0;
   padding: 0;
-  background-image: url('/public/bg-tonasa.png');
+  background-image: url('/bg-tonasa.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
